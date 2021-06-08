@@ -1,7 +1,7 @@
 {-# OPTIONS_GHC -Wno-partial-fields #-}
 {-# LANGUAGE TemplateHaskell #-}
 module Mows.Protocol
-    ( PlayerId, RoomId, RoomIdText, SeqId, XY(..), X, Y, FJson, TJson
+    ( PlayerId, RoomId, RoomIdText, SeqId, XY(..), X, Y, Encodable, Decodable
     , ServerMessage(..), ClientMessage(..)
     , encode, decode
     ) where
@@ -49,14 +49,14 @@ data ServerMessage
     deriving Show
 
 -- wrapper
-type FJson a = FromJSON a
-type TJson a = ToJSON a
+type Decodable a = FromJSON a
+type Encodable a = ToJSON a
 
 -- Aeson
-encode :: TJson a => a -> L.ByteString
+encode :: Encodable a => a -> L.ByteString
 encode = Aeson.encode
 
-decode :: FJson a => L.ByteString -> Maybe a
+decode :: Decodable a => L.ByteString -> Maybe a
 decode = Aeson.decode'
 
 msum <$> forM

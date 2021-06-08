@@ -106,13 +106,13 @@ runPlayer tRoom roomIdText playerId c = do
         Move xy    -> atomically $ movePlayer tRoom playerId xy
         Ping seqId -> send c $ Pong seqId
 
-send :: TJson a => WS.Connection -> a -> IO ()
+send :: Encodable a => WS.Connection -> a -> IO ()
 send c a = do
     let x = encode a
     -- info $ ">>> " ++ show x
     WS.sendTextData c x
 
-broadcast :: TJson a => Room -> a -> IO ()
+broadcast :: Encodable a => Room -> a -> IO ()
 broadcast Room{roomPlayerId2player} m = do
     let json = encode m
     -- info $ ">*> " ++ show json
@@ -123,7 +123,7 @@ broadcast Room{roomPlayerId2player} m = do
             -- (\e -> info $ "... Couldn't send a broadcast to a peer: " ++ show e )
             (do WS.sendTextData connection json)
 
-receive :: forall a. (FJson a) => WS.Connection -> IO a
+receive :: Decodable a => WS.Connection -> IO a
 receive c =
     WS.receiveDataMessage c <&> \case
         WS.Text bs _ -> fromMaybe (error $ "Couldn't parse JSON: " ++ show bs) (decode bs)
