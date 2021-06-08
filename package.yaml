@@ -1,0 +1,90 @@
+name:                mows
+version:             0.1.0.0
+#synopsis:
+#description:
+homepage:            https://github.com/oshyshko/mows#readme
+license:             BSD3
+author:              Alex Shyshko
+maintainer:          oshyshko@gmail.com
+copyright:           2021 Alex Shyshko
+category:            Web
+extra-source-files:
+- README.md
+
+dependencies:
+- base
+- aeson
+- async
+- bytestring
+- containers
+- fast-logger
+- random
+- safe-exceptions
+- stm
+- text
+- time
+- vector
+- wai
+- wai-app-static
+- wai-websockets
+- warp
+- websockets
+
+executables:
+  mows:
+    main: Main.hs
+    ghc-options:
+    - "\"-with-rtsopts=-xn\""
+
+  # mows-llvm:
+  #   main: Main.hs
+  #   ghc-options:
+  #   - -fllvm
+
+source-dirs: src
+ghc-options:
+- -threaded
+- -rtsopts
+- -O2
+- -optc-O3
+# - -fllvm
+- -Wall
+- -funbox-strict-fields
+- -fno-warn-unused-do-bind
+#  from https://kowainik.github.io/posts/2019-02-06-style-guide#general-recommendations
+- -Widentities
+# - -Wincomplete-uni-patterns
+- -Wincomplete-record-updates
+# - -Wmissing-export-lists
+# - -Wmissing-deriving-strategies   <--  8.8.1
+# exclude these for etlas:
+- -Wcompat
+- -Wredundant-constraints
+- -Wpartial-fields
+- -fhide-source-paths
+- -freverse-errors
+# stan
+#- -fwrite-ide-info
+#- -hiedir=.hie
+
+default-extensions:
+- AllowAmbiguousTypes
+- ConstraintKinds
+- DataKinds
+- DeriveGeneric
+- DuplicateRecordFields
+- FlexibleContexts
+- FlexibleInstances
+- LambdaCase
+- MultiParamTypeClasses
+- MultiWayIf
+- NamedFieldPuns
+- OverloadedStrings
+- RankNTypes,
+- RecordWildCards
+- ScopedTypeVariables
+- StrictData
+- TupleSections
+- TypeApplications
+- TypeFamilies
+- TypeOperators

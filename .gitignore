@@ -1,0 +1,10 @@
+.DS_Store
+.idea
+.stack-work*
+.hie
+*.iml
+*.lock
+*.prof*
+*.cabal
+*-exe.*
+hie.yaml
