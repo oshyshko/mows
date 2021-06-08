@@ -32,12 +32,12 @@ type Y            = Int
 data XY = XY
     { x :: {-# UNPACK #-} X
     , y :: {-# UNPACK #-} Y
-    } deriving (Generic, Show)
+    } deriving Show
 
 data ClientMessage
     = Move { pos :: XY }
     | Ping { id :: SeqId }
-    deriving (Generic, Show)
+    deriving Show
 
 data ServerMessage
     = Login         { id :: PlayerId }
@@ -46,7 +46,7 @@ data ServerMessage
     | Add           { id :: PlayerId, pos :: XY }
     | Remove        { id :: PlayerId }
     | Pong          { id :: SeqId }
-    deriving (Generic)
+    deriving Show
 
 -- wrapper
 type FJson a = FromJSON a
